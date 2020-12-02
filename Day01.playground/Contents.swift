@@ -9,6 +9,7 @@ var content = String(data: contentData, encoding: String.Encoding.utf8)
 guard let rawInput = content?.split(separator: "\n") else { exit(-1) }
 let input = rawInput.map { Int($0) ?? -1 }
 
+
 // MARK:- Part 1
 func partOne(input: [Int]) -> Int {
     var answer: Int = 0
@@ -25,19 +26,20 @@ func partOne(input: [Int]) -> Int {
     return answer
 }
 
-print(partOne(input: input))
 
 // MARK:- Part 2
 func partTwo(input: [Int]) -> Int {
     var answer = 0
-    for (index, value) in input.enumerated() {
-        var tmp = input
-        tmp.remove(at: index)
+    outLoop: for (index, value) in input.enumerated() {
+        // creates a new array of inputs removing the elements already checked
+        var tmp = input[index...]
+        print(tmp)
+
         for (i, v) in tmp.enumerated() {
             for newI in i..<tmp.count {
                 if value + v + tmp[newI] == 2020 {
                     answer = value * v * tmp[newI]
-                    break
+                    break outLoop
                 }
             }
         }
@@ -47,9 +49,7 @@ func partTwo(input: [Int]) -> Int {
 }
 
 
-print(partTwo(input: input))
-
-
+// MARK:- Tests
 class Day01Tests: XCTestCase {
     func testPartOne() {
         var answer = 494475
