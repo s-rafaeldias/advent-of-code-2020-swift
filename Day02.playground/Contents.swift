@@ -28,10 +28,10 @@ struct PasswordPolicy {
         return firstChar != secondChar && (firstChar == letter || secondChar == letter)
     }
 
-    init(password: [String]) {
-        let range = password[0]
-        let rule = password[1]
-        let password = password[2]
+    init(passwordLog: [String]) {
+        let range = passwordLog[0]
+        let rule = passwordLog[1]
+        let password = passwordLog[2]
 
         // range is in format `min-max`
         let ranges = range.split(separator: "-")
@@ -45,7 +45,7 @@ struct PasswordPolicy {
 }
 
 let partOne = input
-    .map { PasswordPolicy(password: $0).isValidPasswordPartOne }
+    .map { PasswordPolicy(passwordLog: $0).isValidPasswordPartOne }
     .filter({ $0 })
     .count
 
@@ -53,7 +53,7 @@ print("Part One: \(partOne)")
 
 
 let partTwo = input
-    .map { PasswordPolicy(password: $0).isValidPasswordPartTwo }
+    .map { PasswordPolicy(passwordLog: $0).isValidPasswordPartTwo }
     .filter({ $0 })
     .count
 
