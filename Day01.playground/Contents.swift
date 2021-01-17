@@ -11,53 +11,48 @@ let input = rawInput.map { Int($0) ?? -1 }
 
 
 // MARK:- Part 1
-func partOne(input: [Int]) -> Int {
-    var answer: Int = 0
+func partOne(input: [Int]) -> Int? {
+    let set = Array(Set(input))
 
-    for (index, value) in input.enumerated() {
-        for newIndex in index..<input.count {
-            if value + input[newIndex] == 2020 {
-                answer = value * input[newIndex]
-                break
+    for (i, value) in set.enumerated() {
+        for j in i..<set.count {
+            if value + set[j] == 2020 {
+                return value * set[j]
             }
         }
     }
 
-    return answer
+    return nil
 }
 
 
 // MARK:- Part 2
-func partTwo(input: [Int]) -> Int {
-    var answer = 0
-    outLoop: for (index, value) in input.enumerated() {
-        // creates a new array of inputs removing the elements already checked
-        var tmp = input[index...]
-        print(tmp)
+func partTwo(input: [Int]) -> Int? {
+    let set = Array(Set(input))
 
-        for (i, v) in tmp.enumerated() {
-            for newI in i..<tmp.count {
-                if value + v + tmp[newI] == 2020 {
-                    answer = value * v * tmp[newI]
-                    break outLoop
+    for i in 0..<set.count-2 {
+        for j in i+1..<set.count-1 {
+            for k in j+1..<set.count {
+                if set[i] + set[j] + set[k] == 2020 {
+                    return set[i] * set[j] * set[k]
                 }
             }
         }
     }
 
-    return answer
+    return nil
 }
 
 
 // MARK:- Tests
 class Day01Tests: XCTestCase {
     func testPartOne() {
-        var answer = 494475
+        let answer = 494475
         XCTAssertEqual(answer, partOne(input: input))
     }
 
     func testPartTwo() {
-        var answer = 267520550
+        let answer = 267520550
         XCTAssertEqual(answer, partTwo(input: input))
     }
 }
