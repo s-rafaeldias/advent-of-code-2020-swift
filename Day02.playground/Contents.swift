@@ -1,4 +1,6 @@
 import Cocoa
+import XCTest
+
 
 // Read input from file
 var filePath = Bundle.main.path(forResource: "input", ofType: "txt")!
@@ -46,15 +48,31 @@ struct PasswordPolicy {
 
 let partOne = input
     .map { PasswordPolicy(passwordLog: $0).isValidPasswordPartOne }
-    .filter({ $0 })
+    .filter { $0 }
     .count
 
-print("Part One: \(partOne)")
+//print("Part One: \(partOne)")
 
 
 let partTwo = input
     .map { PasswordPolicy(passwordLog: $0).isValidPasswordPartTwo }
-    .filter({ $0 })
+    .filter { $0 }
     .count
 
-print("Part Two: \(partTwo)")
+//print("Part Two: \(partTwo)")
+
+
+// MARK:- Tests
+class Day02Tests: XCTestCase {
+    func testPartOne() {
+        let answer = 469
+        XCTAssertEqual(answer, partOne)
+    }
+
+    func testPartTwo() {
+        let answer = 267
+        XCTAssertEqual(answer, partTwo)
+    }
+}
+
+Day02Tests.defaultTestSuite.run()
